@@ -30,9 +30,12 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const courseCollection = client.db('courseDB').collection('courses');
-
-
-    
+    // course api
+    app.get('/courses', async (req, res) => {
+      const cursor = courseCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
   } finally {
   }
 }
