@@ -29,7 +29,10 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    const taskCollection = client.db('dhDB').collection('tasks');
+    const courseCollection = client.db('courseDB').collection('courses');
+
+
+    
   } finally {
   }
 }
