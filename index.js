@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 // middleware
 app.use(
   cors({
-    origin: ['http://localhost:5173', ''],
+    origin: ['http://localhost:5173', 'https://skill-craze.web.app'],
     credentials: true,
   })
 );
