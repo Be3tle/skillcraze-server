@@ -30,6 +30,8 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const courseCollection = client.db('courseDB').collection('courses');
+    const enrollCollection = client.db('courseDB').collection('enrollments');
+
     // course api
     app.get('/courses', async (req, res) => {
       const cursor = courseCollection.find();
@@ -41,6 +43,15 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await courseCollection.findOne(query);
+      res.send(result);
+    });
+
+    // enroll api
+
+    app.post('/enrollments', async (req, res) => {
+      const enrolledItem = req.body;
+      console.log(enrolledItem);
+      const result = await enrollCollection.insertOne(enrolledItem);
       res.send(result);
     });
   } finally {
