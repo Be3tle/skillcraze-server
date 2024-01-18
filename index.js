@@ -47,10 +47,23 @@ async function run() {
     });
 
     // enroll api
+    app.get('/enrollments/:email', async (req, res) => {
+      const email = req.params.email;
+      const userEmail = { email: email };
+      const result = await enrollCollection.find(userEmail).toArray();
+      console.log(result);
+      res.send(result);
+    });
+
+    app.get('/enrollments', async (req, res) => {
+      const cursor = enrollCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     app.post('/enrollments', async (req, res) => {
       const enrolledItem = req.body;
-      console.log(enrolledItem);
+      // console.log(enrolledItem);
       const result = await enrollCollection.insertOne(enrolledItem);
       res.send(result);
     });
