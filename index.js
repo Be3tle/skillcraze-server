@@ -51,7 +51,7 @@ async function run() {
       const email = req.params.email;
       const userEmail = { email: email };
       const result = await enrollCollection.find(userEmail).toArray();
-      console.log(result);
+      // console.log(result);
       res.send(result);
     });
 
@@ -65,6 +65,20 @@ async function run() {
       const enrolledItem = req.body;
       // console.log(enrolledItem);
       const result = await enrollCollection.insertOne(enrolledItem);
+      res.send(result);
+    });
+
+    app.get('/enrollments/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await enrollCollection.findOne(query);
+      res.send(result);
+    });
+
+    app.delete('/enrollments/:id', async (req, res) => {
+      const id = req.params?.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await enrollCollection.deleteOne(query);
       res.send(result);
     });
   } finally {
